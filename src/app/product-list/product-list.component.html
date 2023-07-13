@@ -1,0 +1,61 @@
+<div class="container"> 
+ <div>
+    <input type="text" [(ngModel)]="searchText" (keyup)="filterProducts()" placeholder="Search products">
+ </div>
+ 
+ <table class="table bordered-table" >
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Image</th>
+            <th>Rating</th>
+            <th>Options</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let list of filteredProduct.slice((currentPage - 1) * pageSize, currentPage * pageSize)">
+            <td>{{list.id}}</td>
+            <td>{{list.title}}</td>
+            <td>{{list.price}}</td>
+            <td>{{list.description}}</td>
+            <td>{{list.description}}</td>
+            <td>{{list.image}}</td>
+            <td>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Rate</th>
+                            <th>Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{list.rating.rate}}</td>
+                            <td>{{list.rating.count}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td>
+               <button type="button" (click)="update(list)">Update</button><br/><br/>
+               <button type="button" (click)="delete($event, list?.id || 0)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+
+ 
+
+ </table>
+<div class="pagination">
+    <button type="button"  [disabled]="currentPage === filteredProduct.length / pageSize"  (click)="goToPage(currentPage+1)">Next Page</button><br/>
+  </div><br/>
+  <div><button type="button"  [disabled]="currentPage === 1"  (click)="goToPreviousPage(currentPage-1)">Pervious Page</button></div>
+</div>
+ 
+     
+
+
